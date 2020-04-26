@@ -11,7 +11,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="main.php">Home</a></li>
                 <li><a href="mypost.php">My Post</a></li>
-                <li><a href="#">My Info</a></li>
+                <li><a href="myinfo.php">My Info</a></li>
 
             </ul>
 

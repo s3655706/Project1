@@ -15,15 +15,17 @@
         require_once "common.php";
 
         $db = getConnection();
-        $type = null;
-        $work = null;
-        $eduction = null;
-        $title = null;
+        $type = $_SESSION['user_type'];
+        $work = $_SESSION['area_id'];
+        $eduction = $_SESSION['education'];
+        $title = $_SESSION['description'];
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['type'];
             $work = $_POST['work'];
             $eduction = $_POST['eduction'];
             $title = $_POST['title'];
+
+
         }
         ?>
 
@@ -147,19 +149,27 @@
                         while (oci_fetch_array($stmt)) {
 
                      ?>
-
-
-                            <div class="media">
-
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#"><?= oci_result($stmt,"TITLE") ?></a>
-                                        <span style="color: #a9a6a6;font-size: 13px;"> Publish by <?= oci_result($stmt,"USERNAME")  ?>
-                                            in <?= oci_result($stmt,"PUBLISH_TIME") ?></span></h4>
-                                    <?= oci_result($stmt,"CONTENT") ?>
+                            <div class="col-sm-6 col-md-4">
+                                <div class="thumbnail">
+                                    <div class="caption">
+                                        <h3><a href="#"><?= oci_result($stmt,"TITLE") ?></a></h3>
+                                        <hr>
+                                        <div>
+                                            类型:<?= oci_result($stmt,"POST_TYPE") == 2?'应聘':'招募'; ?>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            工作:<?= $areas[oci_result($stmt,"AREA_ID")]  ; ?>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            工作:<?= $educations[oci_result($stmt,"EDUCATION_TYPE")]  ; ?>
+                                        </div>
+                                        <hr>
+                                        <p><?= oci_result($stmt,'CONTENT'); ?></p>
+                                    </div>
                                 </div>
                             </div>
-                            <hr>
-
 
                             <?php
                         }

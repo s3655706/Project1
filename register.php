@@ -53,6 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 <div style="margin-bottom: 60px;margin-top: 50px;">
     <h2 class="text-center">Welcome to GoodJob</h2>
+    <h3 class="text-center">Here, discover more talented partners.</h3>
+
 </div>
 <div class="container-fluid">
     <div class="row">
