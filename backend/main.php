@@ -15,27 +15,17 @@
         require_once "common.php";
 
         $db = getConnection();
-<<<<<<< Updated upstream
         $type = $_SESSION['user_type'];
         $work = $_SESSION['area_id'];
         $eduction = $_SESSION['education'];
         $title = $_SESSION['description'];
-=======
-        $type = null;
-        $work = null;
-        $eduction = null;
-        $title = null;
->>>>>>> Stashed changes
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $type = $_POST['type'];
             $work = $_POST['work'];
             $eduction = $_POST['eduction'];
             $title = $_POST['title'];
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
         }
         ?>
 
@@ -49,25 +39,26 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Search Post</h3>
+                    <h3 class="panel-title">Search Job</h3>(Introduction: If you are a new user, the search engine displays all job posts in Job List by default. If you are an old user (added information on the Myinfo page), the search engine automatically fills in data related to your personal information at search box by default, and only show related job posts in the Job List.)
                 </div>
                 <div class="panel-body">
+                (How use Smart search: You can combine the search bar input information (Job Title) and options (Job type, Job field, and Education) to query together, or you can use the search bar query alone or option query alone. For example: 1. only use Job type, the other three are None. 2. only use Job type and Job field, the other two are None. 3. only use Job type, Job field, and Education, the other one is None. And so on.)
                     <form class="form-horizontal" action="main.php" method="post">
                         <div class="form-group">
-                            <label for="type" class="col-sm-2 control-label">Post Type</label>
+                            <label for="type" class="col-sm-2 control-label">Job Type</label>
                             <div class="col-sm-10 ">
                                 <select name="type" class="form-control" id="type">
-                                    <option <?= $type!=null && $type =='0' ? 'selected':'' ?> value="0">None</option>
-                                    <option <?= $type!=null && $type =='1' ? 'selected':'' ?> value="1">Apply</option>
-                                    <option <?= $type!=null && $type =='2' ? 'selected':'' ?> value="2">Recruitment</option>
+                                    <option <?= $type!=null && $type =='0' ? 'selected':'' ?> value="0">Both </option>
+                                    <option <?= $type!=null && $type =='1' ? 'selected':'' ?> value="1">Apply for some jobs</option>
+                                    <option <?= $type!=null && $type =='2' ? 'selected':'' ?> value="2">Advertise job offers</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="work" class="col-sm-2 control-label">Work Domain</label>
+                            <label for="work" class="col-sm-2 control-label">Job Field</label>
                             <div class="col-sm-10 ">
                                 <select name="work" class="form-control" id="work">
-                                    <option <?= $work!=null && $work =='0' ? 'selected':'' ?>   value="0">None</option>
+                                    <option <?= $work!=null && $work =='0' ? 'selected':'' ?>   value="0">No special requirements</option>
                                     <option <?= $work!=null && $work =='1' ? 'selected':'' ?>   value="1">Computer Science</option>
                                     <option <?= $work!=null && $work =='2' ? 'selected':'' ?>   value="2">Construction Engineering</option>
                                     <option <?= $work!=null && $work =='3' ? 'selected':'' ?>   value="3">Art</option>
@@ -82,11 +73,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="eduction" class="col-sm-2 control-label">Education Requirement</label>
+                            <label for="eduction" class="col-sm-2 control-label">Educational Restrictions</label>
                             <div class="col-sm-10 ">
                                 <select name="eduction" class="form-control" id="eduction">
-                                    <option  <?= $eduction!=null && $eduction =='0' ? 'selected':'' ?>  value="0">None</option>
-                                    <option  <?= $eduction!=null && $eduction =='1' ? 'selected':'' ?>  value="1">No Academic Requirements</option>
+                                    <option  <?= $eduction!=null && $eduction =='0' ? 'selected':'' ?>  value="0">No Academic Requirements</option>
+                                    <option  <?= $eduction!=null && $eduction =='1' ? 'selected':'' ?>  value="1">High school and Below</option>
                                     <option  <?= $eduction!=null && $eduction =='2' ? 'selected':'' ?>  value="2">Junior College</option>
                                     <option  <?= $eduction!=null && $eduction =='3' ? 'selected':'' ?>  value="3">Undergraduate</option>
                                     <option  <?= $eduction!=null && $eduction =='4' ? 'selected':'' ?>  value="4">Postgraduate and Above</option>
@@ -96,7 +87,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Post Title</label>
+                            <label for="title" class="col-sm-2 control-label">Job Title</label>
                             <div class="col-sm-10">
                                 <input value="<?= $title==null ? '':$title ?>" name="title" type="text" class="form-control" id="title" placeholder="title">
                             </div>
@@ -116,8 +107,16 @@
 
 
             <div class="panel panel-default">
-                <div class="panel-heading">Post List</div>
-                <div class="panel-body">
+                <div class="panel-heading"><h4>Job List</h4>&nbsp;&nbsp;(Introduction: The default sorting is based on the user's personal information. For further searches, please use the search box above.)</div>
+                (The Smart Sorting function:  <b>The most relevant job posts are ranked at the top of the job list</b><br>
+                A = Job Type, B = Job Field, C = Education, D = Job Title. <br>
+                1. Search function only use A, the other three are None. Sort function(The Job list will be sorted as follows:): Show all of job posts which contain A conditon.<br>
+                2. Search function use A and B, the other two are None. Sort function: <b>The first of job post is</b> AB(Job post which contain both A and B conditon), The Second of job post is A(Job post which only contain A conditon), The third of job post is B(Job post which only contain B conditon).<br>
+                3. Search function use A, B and C, the other one is None. Sort function: ABC(Job post which contain A, B and C conditon), AB, AC, BC, A, B, C.<br>
+                4. Search function use A, B, C and D. Sort function: ABCD, ABC, ABD, BCD, AB, AC, AD.....and so on.
+                
+
+                <div class="panel-body"> 
 
                     <?php
 
@@ -159,43 +158,27 @@
                         while (oci_fetch_array($stmt)) {
 
                      ?>
-<<<<<<< Updated upstream
                             <div class="col-sm-6 col-md-4">
                                 <div class="thumbnail">
                                     <div class="caption">
-                                        <h3><a href="#"><?= oci_result($stmt,"TITLE") ?></a></h3>
+                                        <h3><a href="postdetail.php?id=<?= oci_result($stmt,"ID") ?>"><?= oci_result($stmt,"TITLE") ?></a></h3>
                                         <hr>
                                         <div>
-                                            类型:<?= oci_result($stmt,"POST_TYPE") == 2?'应聘':'招募'; ?>
+                                        <b> Job Type:</b>&nbsp;&nbsp;<?= oci_result($stmt,"POST_TYPE") == 2? 'Advertise job offers':'Apply for a job'; ?>
                                         </div>
                                         <hr>
                                         <div>
-                                            工作:<?= $areas[oci_result($stmt,"AREA_ID")]  ; ?>
+                                        <b>Job Field:</b>&nbsp;&nbsp;<?= $areas[oci_result($stmt,"AREA_ID")]  ; ?>
                                         </div>
                                         <hr>
                                         <div>
-                                            工作:<?= $educations[oci_result($stmt,"EDUCATION_TYPE")]  ; ?>
+                                        <b>Education:</b>&nbsp;&nbsp;<?= $educations[oci_result($stmt,"EDUCATION_TYPE")]  ; ?>
                                         </div>
                                         <hr>
-                                        <p><?= oci_result($stmt,'CONTENT'); ?></p>
+                                        <b>Content:</b>&nbsp;&nbsp;<p><?= oci_result($stmt,'CONTENT'); ?></p>
                                     </div>
                                 </div>
                             </div>
-=======
-
-
-                            <div class="media">
-
-                                <div class="media-body">
-                                    <h4 class="media-heading"><a href="#"><?= oci_result($stmt,"TITLE") ?></a>
-                                        <span style="color: #a9a6a6;font-size: 13px;"> Publish by <?= oci_result($stmt,"USERNAME")  ?>
-                                            in <?= oci_result($stmt,"PUBLISH_TIME") ?></span></h4>
-                                    <?= oci_result($stmt,"CONTENT") ?>
-                                </div>
-                            </div>
-                            <hr>
-
->>>>>>> Stashed changes
 
                             <?php
                         }
