@@ -58,7 +58,7 @@ $areas = [
 
 $educations =
     ['None',
-        'No Academic Requirements',
+        'High school and Below',
         'Junior College',
         'Undergraduate',
         'Postgraduate and Above'];
