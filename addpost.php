@@ -52,16 +52,16 @@
                 <div class="panel-body">
                     <form class="form-horizontal" action="addpost.php" method="post">
                         <div class="form-group">
-                            <label for="type" class="col-sm-2 control-label">Post Type</label>
+                            <label for="type" class="col-sm-2 control-label">Job Type</label>
                             <div class="col-sm-10 ">
                                 <select name="post_type" class="form-control" id="type">
-                                    <option value="1">Apply</option>
-                                    <option value="2"> Recruitment</option>
+                                    <option value="1">Apply for a job</option>
+                                    <option value="2">Advertise job offers</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="work" class="col-sm-2 control-label">Work Domain</label>
+                            <label for="work" class="col-sm-2 control-label">Job Field</label>
                             <div class="col-sm-10 ">
                                 <select name="area_id" class="form-control" id="work">
                                     <option value="1">Computer Science</option>
@@ -78,10 +78,10 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="eduction" class="col-sm-2 control-label">Education Requirement</label>
+                            <label for="eduction" class="col-sm-2 control-label">Education</label>
                             <div class="col-sm-10 ">
                                 <select name="eduction_type" class="form-control" id="eduction">
-                                    <option value="1"> No Academic Requirements</option>
+                                    <option value="1"> High school and Below</option>
                                     <option value="2"> Junior College</option>
                                     <option value="3"> Undergraduate</option>
                                     <option value="4"> Postgraduate and Above</option>
@@ -91,7 +91,7 @@
 
                         </div>
                         <div class="form-group">
-                            <label for="title" class="col-sm-2 control-label">Post's title</label>
+                            <label for="title" class="col-sm-2 control-label">Job Title</label>
                             <div class="col-sm-10">
                                 <input required name="title" type="text"
                                        class="form-control" id="title" placeholder="title">

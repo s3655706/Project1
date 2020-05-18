@@ -16,8 +16,19 @@ $password = null;
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = ($_POST['email']);
     $password = ($_POST['password']);
+
+    if($email == 'root@gmail.com' && $password == 'root'){
+        $_SESSION['email'] = 'root@gmail.com';
+        echo "<script>
+                alert('login success');
+                window.location.href = 'adminpost.php';
+            </script>";
+        exit;
+    }
+
+
     $db = getConnection();
-    $sql = "SELECT username,password,email FROM users WHERE email='{$email}'";
+    $sql = "SELECT username,password,email,user_type, area_id, education, description  FROM users WHERE email='{$email}'";
     $stmt = oci_parse($db, $sql);
     oci_execute($stmt);
 
@@ -25,7 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (($password) == oci_result($stmt, "PASSWORD")) {
             $_SESSION['email'] = oci_result($stmt, "EMAIL");
-            $_SESSION['username'] =oci_result($stmt, "USERNAME");
+            $_SESSION['username'] = oci_result($stmt, "USERNAME");
+            $_SESSION['user_type'] = oci_result($stmt, "USER_TYPE");
+            $_SESSION['area_id'] = oci_result($stmt, "AREA_ID");
+            $_SESSION['education'] = oci_result($stmt, "EDUCATION");
+            $_SESSION['description'] = oci_result($stmt, "DESCRIPTION");
             echo "<script>
                 alert('login success');
                 window.location.href = 'main.php';
@@ -46,6 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
 <div style="margin-bottom: 150px;margin-top: 50px;">
     <h2 class="text-center">Welcome to GoodJob</h2>
+    <h3 class="text-center">Looking for a job?</h3>
+    <h4 class="text-center">We understand that for you, it’s never just a job: it’s your future. <h4>
 </div>
 <div class="container-fluid">
     <div class="row">
