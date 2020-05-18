@@ -3,7 +3,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Job Detail</title>
+
+    <title>Main</title>
+
     <link rel="stylesheet" href="./css/bootstrap.css"/>
     <link rel="stylesheet" href="./css/bootstrap-theme.css"/>
 </head>
@@ -15,12 +17,34 @@
         require_once "common.php";
         $db = getConnection();
         $id = null;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])
+            && isset($_GET['method']) && $_GET['method'] == 'apply') {
+            $post_id = $_GET['id'];
+            $time = date('Y-m-d h:i:s', time());
+            $id = create_guid();
+            $sql = "insert into users_post(id,post_id,user_email,apply_time)
+              values('{$id}','{$post_id}','{$_SESSION['email']}',to_date('{$time}','YYYY-MM-DD HH24:MI:SS'))";
+            $stmt = oci_parse($db, $sql);
+            oci_execute($stmt);
+            if ($stmt) {
+                echo "<script>
+                alert('Apply success');
+                window.location.href = 'postdetail.php?id={$post_id}';
+            </script>";
+                exit;
+            }
+        }
+
+
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && !isset($_GET['id'])) {
 
             echo "URL error";
             exit;
         }
-        if ($_SERVER['REQUEST_METHOD'] == 'GET'){
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
             $id = $_GET['id'];
 
         }
@@ -29,7 +53,9 @@
 
             $content = ($_POST['content']);
             $post_id = ($_POST['post_id']);
-            $time = date('Y-m-d h:i:s',time());
+
+            $time = date('Y-m-d h:i:s', time());
+
             $id = create_guid();
             $sql = "insert into comments(id,post_id,content,user_email,publish_time)
           values('{$id}','{$post_id}','{$content}','{$_SESSION['email']}',to_date('{$time}','YYYY-MM-DD HH24:MI:SS'))";
@@ -59,34 +85,61 @@
             $sql = "SELECT TA.*,TB.username FROM posts TA LEFT JOIN users TB ON TA.user_email=TB.email WHERE TA.id='{$id}'";
             $stmt = oci_parse($db, $sql);
             oci_execute($stmt);
-            if ($stmt)
-                if (oci_fetch_array($stmt)) {  ?>
 
-                <div class="col-sm-6 col-md-12">
-                    <h3>Job Detail</h3>
-                    <div class="thumbnail">
-                        <div class="caption text-center">
-                            <h4> <?= oci_result($stmt, "TITLE") ?> </h4>
-                            <h6><span> publish by <?= oci_result($stmt, "USERNAME") ?> in <?=  oci_result($stmt, "PUBLISH_TIME")  ?></span></h6>
-                            <hr>
-                            <div>
-                            <b> Job Type:</b>&nbsp;&nbsp;<?= oci_result($stmt,"POST_TYPE") == 2? 'Advertise job offers':'Apply for a job'; ?>
+            $id = '';
+            if ($stmt)
+                if (oci_fetch_array($stmt)) {
+                    $id = oci_result($stmt, "ID");
+                    ?>
+
+                    <div class="col-sm-6 col-md-12">
+                        <h3>Job Detail</h3>
+                        <div class="thumbnail">
+                            <div class="caption text-center">
+                                <h3> <?= oci_result($stmt, "TITLE") ?> </h3>
+                                <h6>
+                                    <span> publish by <?= oci_result($stmt, "USERNAME") ?> in <?= oci_result($stmt, "PUBLISH_TIME") ?></span>
+                                </h6>
+                                <hr>
+                                <div>
+                                Job Type:<?= oci_result($stmt, "POST_TYPE") == 2 ? 'Advertise job offers':'Apply for a job'; ?>
+                                </div>
+                                <hr>
+                                <div>
+                                Job Field:<?= $areas[oci_result($stmt, "AREA_ID")]; ?>
+                                </div>
+                                <hr>
+                                <div>
+                                Education:<?= $educations[oci_result($stmt, "EDUCATION_TYPE")]; ?>
+                                </div>
+                                <hr>
+                                <b>Content:</b>&nbsp;&nbsp;<p><?= oci_result($stmt, "CONTENT") ?></p>
                             </div>
-                            <hr>
-                            <div>
-                            <b>Job Field:</b>&nbsp;&nbsp;<?= $areas[oci_result($stmt,"AREA_ID")]  ; ?>
-                            </div>
-                            <hr>
-                            <div>
-                            <b>Education:</b>&nbsp;&nbsp;<?= $educations[oci_result($stmt,"EDUCATION_TYPE")]  ; ?>
-                            </div>
-                            <hr>
-                            <b>Content:</b>&nbsp;&nbsp;<p><?= oci_result($stmt,'CONTENT'); ?></p>
                         </div>
                     </div>
-                </div>
 
-            <?php } ?>
+                <?php } ?>
+            <div class="text-center col-sm-6 col-md-12">
+                <?php
+                $sql = "SELECT COUNT(*) num FROM users_post WHERE post_id='{$id}' AND user_email='{$_SESSION['email']}'";
+                $stmt = oci_parse($db, $sql);
+                oci_execute($stmt);
+                if ($stmt)
+                    if (oci_fetch_array($stmt) && oci_result($stmt, "NUM") == 0) {
+
+                        ?>
+
+                        <a href="postdetail.php?method=apply&id=<?= $id ?>" class="btn btn-primary">Apply</a>
+
+                    <?php } else {
+                        ?>
+                        <button disabled="" class="btn btn-primary">Applyed</button>
+
+                    <?php }
+
+                ?>
+            </div>
+
         </div>
 
         <div class="col-md-12">

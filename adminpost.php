@@ -10,8 +10,33 @@
 <body>
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
+
+        <nav class="navbar navbar-default">
+            <div class="container ">
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="adminpost.php"><strong style="color: black">GoodJob</strong> </a>
+                    </div>
+
+                    <ul class="nav navbar-nav">
+                        <li><a href="adminpost.php">Post List</a></li>
+                        <li><a href="admincomment.php">Comment List</a></li>
+
+                    </ul>
+
+                    <ul class="nav navbar-nav">
+                        <li><a>Welcome to GoodJob,&nbsp;<?= $_SESSION['email'] ?>!</a></li>
+                        <li>
+                            <a href="./backend/login.php?method=logout">Logout</a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+
         <?php
-        require_once "header.php";
         require_once "common.php";
         $db = getConnection();
         if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['method']) && $_GET['method'] == 'delete') {
@@ -27,7 +52,7 @@
             if ($stmt) {
                 echo "<script>
             alert('delete success');
-            window.location.href = 'mypost.php';
+            window.location.href = 'adminpost.php';
         </script>";
                 exit;
             }
@@ -44,8 +69,7 @@
 
 
             <div class="panel panel-default">
-                <div class="panel-heading">My Post &nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-default"
-                                                                              href="addpost.php">Publish Job</a></div>
+                <div class="panel-heading">Post List&nbsp; </div>
                 <div class="panel-body">
                     <table class="table table-bordered">
                         <thead>
@@ -59,7 +83,7 @@
                         <?php
 
 
-                        $sql = "SELECT * FROM posts WHERE user_email='{$_SESSION['email']}'";
+                        $sql = "SELECT * FROM posts";
                         $stmt = oci_parse($db, $sql);
                         oci_execute($stmt);
                         if ($stmt)
@@ -70,18 +94,10 @@
                                     <td><?= oci_result($stmt, "TITLE") ?></td>
                                     <td><?= oci_result($stmt, "PUBLISH_TIME") ?></td>
                                     <td><?= $areas[oci_result($stmt, "AREA_ID")] ?></td>
-
                                     <td><?= oci_result($stmt, "POST_TYPE") == 1 ? 'Apply' : 'Recruitment' ?></td>
-
                                     <td><?= $educations[oci_result($stmt, "EDUCATION_TYPE")] ?></td>
                                     <td>
                                         <a href="#" onclick="delete_post('<?= oci_result($stmt, "ID") ?>')">Delete</a>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="editpost.php?id=<?= oci_result($stmt, "ID") ?>">Edit</a>
-
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <a href="applylist.php?id=<?= oci_result($stmt, "ID") ?>">ApplyList</a>
-
                                     </td>
                                 </tr>
 
@@ -103,7 +119,7 @@
 <script type="text/javascript">
     function delete_post(id) {
         if (confirm('are you sure to delete this?')) {
-            window.location.href = 'mypost.php?method=delete&id=' + id;
+            window.location.href = 'adminpost.php?method=delete&id=' + id;
         }
     }
 </script>
