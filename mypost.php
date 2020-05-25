@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/bootstrap.css"/>
     <link rel="stylesheet" href="./css/bootstrap-theme.css"/>
 </head>
-<body>
+<body style="background-image: url('fonts/mypost.jpg');background-size: cover;background-position: center;background-attachment: fixed;">
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <?php

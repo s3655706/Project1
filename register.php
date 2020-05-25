@@ -50,17 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
-<body>
+<body style="background-image: url('fonts/register.jpg');background-size: cover;background-position: center;background-attachment: fixed;">
 <div style="margin-bottom: 60px;margin-top: 50px;">
-    <h2 class="text-center">Welcome to GoodJob</h2>
-    <h3 class="text-center">Here, discover more talented partners.</h3>
+    <h2 class="text-center" >Welcome to GoodJob</h2>
+    <h3 class="text-center" >Here, discover more talented partners.</h3>
 
 </div>
-<div class="container-fluid">
+<div class="container-fluid" >
     <div class="row">
 
         <div class="col-md-4 col-md-offset-4">
-            <h3 class="text-center"><strong>Register</strong></h3>
+            <h3 class="text-center"style="color:blue"><strong>Register</strong></h3>
             <form action="register.php" method="post" onsubmit="return check()">
                 <div class="form-group">
                     <label for="email">Email</label>

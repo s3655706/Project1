@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/bootstrap.css"/>
     <link rel="stylesheet" href="./css/bootstrap-theme.css"/>
 </head>
-<body>
+<body style="background-image: url('fonts/main.jpg');background-size: cover;background-position: center;background-attachment: fixed;">
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <?php
@@ -42,7 +42,7 @@
                     <h3 class="panel-title">Search Job</h3>If you are a new user, the search engine displays all job posts in Job List by default. If you are an old user (added information in the Myinfo page), the search engine automatically fills in data related to your personal information at search box by default, and only show related job posts in the Job List.
                 </div>
                 <div class="panel-body">
-                (How use Smart search: You can combine the search bar input information (Job Title) and options (Job type, Job field, and Education) to query together, or you can use the search bar query alone or option query alone. For example: 1. only use Job type, the other three are None. 2. only use Job type and Job field, the other two are None. 3. only use Job type, Job field, and Education, the other one is None. And so on.)
+                (How use Smart search: You can combine the search bar input information (Skills) and options (Job type, Job field, and Education) to query together, or you can use the search bar query alone or option query alone. For example: 1. only use Job type, the other three are None. 2. only use Job type and Job field, the other two are None. 3. only use Job type, Job field, and Education, the other one is None. And so on.)
                     <form class="form-horizontal" action="main.php" method="post">
                         <div class="form-group">
                             <label for="type" class="col-sm-2 control-label">Job Type</label>
@@ -106,9 +106,10 @@
         <div class="col-md-12">
 
 
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Job List</h4>&nbsp;&nbsp;The default sorting is based on the user's personal information. For further searches, please use the search box above.</div>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Smart Sorting function:  <b>The most relevant job posts are ranked at the top of the job list</b><br>
+            <div>
+                <div class="panel-heading" style="color:white"><h3>Job List</h3></div>
+                <div style="color:white">The default sorting is based on the user's personal information. For further searches, please use the search box above.</div>
+                <div style="color:white">The Smart Sorting function:  <b>The most relevant job posts are ranked at the top of the job list</b></div>
 
                 <div class="panel-body"> 
 
