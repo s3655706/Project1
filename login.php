@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
-<body>
+<body style="background-image: url('fonts/login.jpg');background-size: cover;background-position: center;background-attachment: fixed;">
 <div style="margin-bottom: 150px;margin-top: 50px;">
     <h2 class="text-center">Welcome to GoodJob</h2>
     <h3 class="text-center">Looking for a job?</h3>
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="row">
 
         <div class="col-md-4 col-md-offset-4">
-            <h3 class="text-center"><strong>Login</strong></h3>
+            <h3 class="text-center" style="color:blue"><strong>Login</strong></h3>
             <form action="login.php" method="post">
                 <div class="form-group">
                     <label for="email">Email</label>
